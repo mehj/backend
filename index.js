@@ -79,11 +79,17 @@
           });
         });
       });
-      c = net.connect({
+      this.client = c = net.connect({
         host: this.host,
         port: this.port
       });
       return c.pipe(d).pipe(c);
+    };
+
+    Backend.prototype.disconnect = function() {
+      if (this.client != null) {
+        return this.client.destroy();
+      }
     };
 
     return Backend;
