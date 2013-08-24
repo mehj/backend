@@ -3,7 +3,7 @@
 {encode, decode} = require 'coden'
 
 dnode = require 'dnode'
-net = require 'net'
+reconnect = require 'reconnect'
 
 {inspect} = require 'util'
         
@@ -35,9 +35,8 @@ class Backend
             encode k, (err, result) ->
                 remote.auth k, result.toString(), (addHandler) ->
                     addHandler h... for h in hdls
-        @client = c = net.connect {@host, @port}
-        c.pipe(d).pipe c
-    disconnect: ->
-        @client.destroy() if @client?
+        r = reconnect (c) ->
+            c.pipe(d).pipe c
+        r.connect {@host, @port}
 
 module.exports = {Backend}

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "dnode": "~1.0.5",
-    "coden": "git://github.com/amazo/coden"
+    "coden": "git://github.com/amazo/coden",
+    "reconnect": "~1.5.2"
   }
 }
