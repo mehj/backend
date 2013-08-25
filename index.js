@@ -61,7 +61,7 @@
     };
 
     Backend.prototype.register = function() {
-      var d, hdls, r;
+      var c, d, hdls;
       hdls = this.hdls;
       d = dnode();
       d.on('remote', function(remote) {
@@ -79,13 +79,11 @@
           });
         });
       });
-      r = reconnect(function(c) {
-        return c.pipe(d).pipe(c);
-      });
-      return r.connect({
+      c = net.connect({
         host: this.host,
         port: this.port
       });
+      return c.pipe(d).pipe(c);
     };
 
     return Backend;
